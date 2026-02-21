@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodConnect</title>
+    <style>
+        :root {
+            --primary: #6c47ff;
+            --primary-dark: #e04050;
+            --bg: #f1f2f6;
+            --white: #ffffff;
+            --text: #2f3542;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        /* NAVBAR */
+        nav {
+            background: var(--white);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .lang-select select {
+            padding: 0.4rem 0.6rem;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-family: inherit;
+        }
+
+        /* LAYOUT */
+        .container {
+            width: 100%;
+            max-width: 420px;
+            margin: 4rem auto;
+            padding: 1.5rem;
+            box-sizing: border-box;
+        }
+
+        .view { display: none; }
+        .view.active { display: block; }
+
+        /* CARD */
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 2rem;
+        }
+
+        h1, h2 { margin-top: 0; }
+
+        /* FORM */
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        /* BUTTON */
+        .btn {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--primary);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        .btn-outline:hover { background: var(--primary); color: white; }
+
+        .center { text-align: center; }
+
+        /* RESPONSIVE */
+        @media (max-width: 480px) {
+            .container { margin: 2rem auto; padding: 1rem; }
+            nav { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">FoodCart 🍔🛒</div>
+        <div class="lang-select">
+            <select>
+                <option>English</option>
+                <option>Hindi</option>
+                <option>Marathi</option>
+            </select>
+        </div>
+    </nav>
+
+    <!-- WELCOME -->
+    <div id="welcome-view" class="view active container center">
+        <h1>Welcome to FoodCart Your Food, Anytime ⏱️🍱</h1>
+        <p>Your next meal is a click away.</p>
+        <div style="display:flex; gap:10px; margin-top:2rem;">
+            <button class="btn" onclick="showView('login-view')">Login</button>
+            <button class="btn btn-outline" onclick="showView('signup-view')">Sign Up</button>
+        </div>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="login-view" class="view container">
+        <div class="card">
+            <h2 class="center">Login</h2>
+            <form>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" required>
+                </div>
+                <button class="btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SIGNUP -->
+    <div id="signup-view" class="view container">
+        <div class="card">
+            <h2 class="center">Sign Up</h2>
+            <form>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input type="tel" required>
+                </div>
+                <div class="form-group">
+                    <label>Register As</label>
+                    <select>
+                        <option>Consumer</option>
+                        <option>Restaurant</option>
+                        <option>Driver</option>
+                    </select>
+                </div>
+                <button class="btn">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+<script>
+function showView(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+</script>
+
+</body>
+</html>
