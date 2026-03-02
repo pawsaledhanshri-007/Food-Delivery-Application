@@ -1,185 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodConnect</title>
-    <style>
-        :root {
-            --primary: #6c47ff;
-            --primary-dark: #e04050;
-            --bg: #f1f2f6;
-            --white: #ffffff;
-            --text: #2f3542;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FoodCart 🍔🛒</title>
 
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-        }
+<style>
+:root {
+    --primary: #6c47ff;
+    --primary-dark: #5936e0;
+    --bg: #f5f3ff;
+    --white: #ffffff;
+    --text: #2f3542;
+}
 
-        /* NAVBAR */
-        nav {
-            background: var(--white);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary);
-        }
+nav {
+    background: var(--white);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
 
-        .lang-select select {
-            padding: 0.4rem 0.6rem;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-family: inherit;
-        }
+.logo {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--primary);
+}
 
-        /* LAYOUT */
-        .container {
-            width: 100%;
-            max-width: 420px;
-            margin: 4rem auto;
-            padding: 1.5rem;
-            box-sizing: border-box;
-        }
+.container {
+    max-width: 450px;
+    margin: 4rem auto;
+    padding: 1.5rem;
+}
 
-        .view { display: none; }
-        .view.active { display: block; }
+.view { display: none; }
+.view.active { display: block; }
 
-        /* CARD */
-        .card {
-            background: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            padding: 2rem;
-        }
+.card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(108,71,255,0.1);
+    padding: 2rem;
+}
 
-        h1, h2 { margin-top: 0; }
+.form-group { margin-bottom: 1rem; }
 
-        /* FORM */
-        .form-group { margin-bottom: 1rem; }
-        .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; }
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 0.7rem;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-sizing: border-box;
-        }
+.form-group label {
+    display:block;
+    margin-bottom:6px;
+    font-weight:600;
+}
 
-        /* BUTTON */
-        .btn {
-            width: 100%;
-            padding: 0.8rem;
-            border: none;
-            border-radius: 8px;
-            background: var(--primary);
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        .btn-outline:hover { background: var(--primary); color: white; }
+.form-group input, .form-group select {
+    width:100%;
+    padding:0.75rem;
+    border:1px solid #ddd;
+    border-radius:10px;
+    outline:none;
+    transition:0.3s;
+}
 
-        .center { text-align: center; }
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--primary);
+}
 
-        /* RESPONSIVE */
-        @media (max-width: 480px) {
-            .container { margin: 2rem auto; padding: 1rem; }
-            nav { flex-direction: column; gap: 10px; }
-        }
-    </style>
+.btn {
+    width:100%;
+    padding:0.9rem;
+    border:none;
+    border-radius:10px;
+    background:var(--primary);
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.btn:hover {
+    background:var(--primary-dark);
+}
+
+.link-text {
+    text-align:center;
+    margin-top:1rem;
+    font-size:0.9rem;
+}
+
+.link-text span {
+    color: var(--primary);
+    cursor:pointer;
+    font-weight:600;
+}
+
+.link-text span:hover {
+    text-decoration: underline;
+}
+
+.center { text-align:center; }
+.extra-fields { display:none; }
+</style>
 </head>
+
 <body>
 
-    <nav>
-        <div class="logo">FoodCart 🍔🛒</div>
-        <div class="lang-select">
-            <select>
-                <option>English</option>
-                <option>Hindi</option>
-                <option>Marathi</option>
-            </select>
-        </div>
-    </nav>
+<nav>
+    <div class="logo">FoodCart 🍔🛒</div>
+</nav>
 
-    <!-- WELCOME -->
-    <div id="welcome-view" class="view active container center">
-        <h1>Welcome to FoodCart Your Food, Anytime ⏱️🍱</h1>
-        <p>Your next meal is a click away.</p>
-        <div style="display:flex; gap:10px; margin-top:2rem;">
-            <button class="btn" onclick="showView('login-view')">Login</button>
-            <button class="btn btn-outline" onclick="showView('signup-view')">Sign Up</button>
+<!-- WELCOME -->
+<div id="welcome-view" class="view active container center">
+    <h1>Welcome to FoodCart 🍔</h1>
+    <p>Your next meal is just a click away.</p>
+    <div style="display:flex; gap:10px; margin-top:2rem;">
+        <button class="btn" onclick="showView('login-view')">Login</button>
+        <button class="btn btn-outline" onclick="showView('signup-view')">Sign Up</button>
+    </div>
+</div>
+
+<!-- LOGIN -->
+<div id="login-view" class="view container">
+    <div class="card">
+        <h2 class="center">Login</h2>
+        <form id="loginForm">
+
+            <div class="form-group">
+                <label>Login As</label>
+                <select id="loginRole" required>
+                    <option value="">Select Role</option>
+                    <option value="consumer">Consumer</option>
+                    <option value="restaurant">Restaurant</option>
+                    <option value="driver">Driver</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="loginEmail" required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" required>
+            </div>
+
+            <button class="btn">Login</button>
+        </form>
+
+        <div class="link-text">
+            Don’t have an account? 
+            <span onclick="showView('signup-view')">Sign Up</span>
         </div>
     </div>
+</div>
 
-    <!-- LOGIN -->
-    <div id="login-view" class="view container">
-        <div class="card">
-            <h2 class="center">Login</h2>
-            <form>
+<!-- SIGNUP -->
+<div id="signup-view" class="view container">
+    <div class="card">
+        <h2 class="center">Sign Up</h2>
+        <form id="signupForm">
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" required>
+            </div>
+
+            <div class="form-group">
+                <label>Mobile Number</label>
+                <input type="tel" id="mobile" required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" required>
+            </div>
+
+            <div class="form-group">
+                <label>Register As</label>
+                <select id="role" required onchange="handleRoleChange()">
+                    <option value="">Select Role</option>
+                    <option value="consumer">Consumer</option>
+                    <option value="restaurant">Restaurant</option>
+                    <option value="driver">Driver</option>
+                </select>
+            </div>
+
+            <!-- Restaurant Fields -->
+            <div id="restaurantFields" class="extra-fields">
                 <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" required>
+                    <label>Restaurant Name</label>
+                    <input type="text" id="restaurantName">
                 </div>
                 <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" required>
+                    <label>Restaurant Address</label>
+                    <input type="text" id="restaurantAddress">
                 </div>
-                <button class="btn">Login</button>
-            </form>
+            </div>
+
+            <!-- Driver Fields -->
+            <div id="driverFields" class="extra-fields">
+                <div class="form-group">
+                    <label>Vehicle Type</label>
+                    <input type="text" id="vehicleType">
+                </div>
+                <div class="form-group">
+                    <label>Vehicle Number</label>
+                    <input type="text" id="vehicleNumber">
+                </div>
+            </div>
+
+            <button class="btn">Sign Up</button>
+        </form>
+
+        <div class="link-text">
+            Already have an account? 
+            <span onclick="showView('login-view')">Login</span>
         </div>
     </div>
-
-    <!-- SIGNUP -->
-    <div id="signup-view" class="view container">
-        <div class="card">
-            <h2 class="center">Sign Up</h2>
-            <form>
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" required>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" required>
-                </div>
-                <div class="form-group">
-                    <label>Mobile Number</label>
-                    <input type="tel" required>
-                </div>
-                <div class="form-group">
-                    <label>Register As</label>
-                    <select>
-                        <option>Consumer</option>
-                        <option>Restaurant</option>
-                        <option>Driver</option>
-                    </select>
-                </div>
-                <button class="btn">Sign Up</button>
-            </form>
-        </div>
-    </div>
+</div>
 
 <script>
 function showView(id) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     document.getElementById(id).classList.add('active');
 }
+
+function handleRoleChange() {
+    const role = document.getElementById("role").value;
+    document.getElementById("restaurantFields").style.display =
+        role === "restaurant" ? "block" : "none";
+    document.getElementById("driverFields").style.display =
+        role === "driver" ? "block" : "none";
+}
+
+/* ================= SIGNUP ================= */
+
+document.getElementById("signupForm").addEventListener("submit", async(e)=>{
+    e.preventDefault();
+
+    const data = {
+        username: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value,
+        role: document.getElementById("role").value
+    };
+
+    const res = await fetch("/signup",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+
+    if(result.message){
+        alert(result.message);
+        return;
+    }
+
+    // Save user in localStorage
+    localStorage.setItem("user", JSON.stringify(result));
+
+    // Direct dashboard open
+    window.location.href = "/dashboard.html";
+});
+
+/* ================= LOGIN ================= */
+
+document.getElementById("loginForm").addEventListener("submit", async(e)=>{
+    e.preventDefault();
+
+    const data = {
+        email: document.getElementById("loginEmail").value,
+        password: document.getElementById("loginPassword").value
+    };
+
+    const res = await fetch("/login",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+
+    if(result.message){
+        alert(result.message);
+        return;
+    }
+
+    // Save user in localStorage
+    localStorage.setItem("user", JSON.stringify(result));
+
+    // Redirect to dashboard
+    window.location.href = "dashboard.html";
+});
 </script>
 
 </body>

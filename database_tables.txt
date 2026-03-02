@@ -1,0 +1,28 @@
+CREATE DATABASE foodcart;
+USE foodcart;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100),
+    email VARCHAR(100),
+    password VARCHAR(255),
+    role ENUM('consumer','restaurant','driver')
+);
+
+CREATE TABLE food_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    restaurant_id INT,
+    name VARCHAR(255),
+    price DECIMAL(10,2),
+    gst DECIMAL(5,2),
+    image VARCHAR(255)
+);
+
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    restaurant_id INT,
+    driver_id INT DEFAULT NULL,
+    total DECIMAL(10,2),
+    status ENUM('pending','accepted','assigned','delivered') DEFAULT 'pending'
+);
